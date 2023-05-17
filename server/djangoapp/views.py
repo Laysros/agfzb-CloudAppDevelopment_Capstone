@@ -94,8 +94,9 @@ def registration_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
-        #url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/dealership"
-        url = "https://us-south.functions.appdomain.cloud/api/v1/web/f3e16eb9-b4fa-4e9e-8897-ee1d90c7eacc/dealership-package/get-dealership"
+        #url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-dealership"
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-dealership"
+        
         dealerships = get_dealers_from_cf(url)
         context["dealership_list"] = dealerships
         return render(request, 'djangoapp/index.html', context)
@@ -106,13 +107,11 @@ def get_dealerships(request):
 def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
-        #dealer_url = "https://us-south.functions.cloud.ibm.com/api/v1/namespaces/9753fbde-0f89-46b2-847a-33c5ab3ea720/actions/dealership-package/dealership"
-        dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/f3e16eb9-b4fa-4e9e-8897-ee1d90c7eacc/dealership-package/get-dealership"
+        dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-dealership"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
     
-        #review_url = "https://us-south.functions.cloud.ibm.com/api/v1/namespaces/9753fbde-0f89-46b2-847a-33c5ab3ea720/actions/dealership-package/review"
-        review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/f3e16eb9-b4fa-4e9e-8897-ee1d90c7eacc/dealership-package/get-review"
+        review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-review"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
         print(reviews)
         context["reviews"] = reviews
@@ -125,8 +124,7 @@ def get_dealer_details(request, id):
 # ...
 def add_review(request, id):
     context = {}
-    #dealer_url = "https://us-south.functions.cloud.ibm.com/api/v1/namespaces/9753fbde-0f89-46b2-847a-33c5ab3ea720/actions/dealership-package/dealership"
-    dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/f3e16eb9-b4fa-4e9e-8897-ee1d90c7eacc/dealership-package/get-dealership"
+    dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-dealership"
 
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
@@ -160,8 +158,7 @@ def add_review(request, id):
 
             new_payload = {}
             new_payload["review"] = payload
-            #review_post_url = "https://us-south.functions.cloud.ibm.com/api/v1/namespaces/9753fbde-0f89-46b2-847a-33c5ab3ea720/actions/dealership-package/dealership"
-            review_post_url = "https://us-south.functions.appdomain.cloud/api/v1/web/f3e16eb9-b4fa-4e9e-8897-ee1d90c7eacc/dealership-package/get-post"
+            review_post_url = "https://us-south.functions.appdomain.cloud/api/v1/web/9753fbde-0f89-46b2-847a-33c5ab3ea720/dealership-package/get-post"
 
             post_request(review_post_url, new_payload, id=id)
         return redirect("djangoapp:dealer_details", id=id)
